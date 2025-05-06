@@ -97,6 +97,7 @@ char GetComputerChoice()
     case 3:
         return 'a';
     }
+    return 'p'; // Default return value in case of unexpected behavior
 }
 
 //* ShowChoice: função para mostrar a escolha do jogador ou computador
