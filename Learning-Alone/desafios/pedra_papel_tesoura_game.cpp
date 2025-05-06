@@ -75,20 +75,20 @@ char GetUserChoice()
 
     return player;
 
-    // A função retorna a escolha do jogador, que deve ser 'p', 'a' ou 't'
-    // Se o jogador não digitar uma dessas opções, a função continua pedindo a entrada
+    //TODO A função retorna a escolha do jogador, que deve ser 'p', 'a' ou 't'
+    //TODO Se o jogador não digitar uma dessas opções, a função continua pedindo a entrada
 }
 
-// GetComputerChoice: função para obter a escolha do computador
+//TODO GetComputerChoice: função para obter a escolha do computador
 char GetComputerChoice()
 {
 
-    srand(time(0)); // Inicializa o gerador de números aleatórios com o tempo atual
-    // Gera um número aleatório entre 1 e 3
+    srand(time(0)); //TODO Inicializa o gerador de números aleatórios com o tempo atual
+    //TODO Gera um número aleatório entre 1 e 3
     int num = rand() % 3 + 1;
 
-    switch (num) // A função retorna a escolha do computador com base no número gerado
-    // 1 = pedra, 2 = tesoura, 3 = papel
+    switch (num) //TODO A função retorna a escolha do computador com base no número gerado
+    //TODO 1 = pedra, 2 = tesoura, 3 = papel
     {
     case 1:
         return 'p';
@@ -99,8 +99,8 @@ char GetComputerChoice()
     }
 }
 
-// ShowChoice: função para mostrar a escolha do jogador ou computador
-// A função recebe um caractere como argumento e imprime a escolha correspondente
+//* ShowChoice: função para mostrar a escolha do jogador ou computador
+//TODO A função recebe um caractere como argumento e imprime a escolha correspondente
 void ShowChoice(char choice)
 {
     switch (choice)
@@ -117,8 +117,8 @@ void ShowChoice(char choice)
     }
 }
 
-// ChosseWinner: função para determinar o vencedor do jogo
-// A função recebe as escolhas do jogador e do computador como argumentos e imprime o resultado
+//* ChosseWinner: função para determinar o vencedor do jogo
+//TODO A função recebe as escolhas do jogador e do computador como argumentos e imprime o resultado
 void ChosseWinner(char player, char computer)
 {
     switch (player)
@@ -167,6 +167,6 @@ void ChosseWinner(char player, char computer)
         break;
     default:
         cout << "Escolha inválida!" << endl;
-        break; // Caso o jogador faça uma escolha inválida, imprime uma mensagem de erro
+        break; //TODO Caso o jogador faça uma escolha inválida, imprime uma mensagem de erro
     }
 }
