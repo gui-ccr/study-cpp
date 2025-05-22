@@ -1,5 +1,6 @@
 #include <iostream>
 
+
 int main()
 {
     /* 
@@ -25,16 +26,16 @@ int main()
     // std::cout << "enter de temperatura: ";
     // std::cin >> temp;
 
-    // if (temp > 0 || temp < 30){
-    //     std::cout << "the temperatura is bad!";    
+    // if (temp < 0 || temp > 30){
+    //     std::cout << "falso";    
     // }
     // else{
-    //     std::cout << "the temperatura is good!";
+    //     std::cout << "verdadeiro";
     // }
 
-    // int temp;
-    // std::cout << "enter de temperatura: ";
-    // std::cin >> temp;
+    // // int temp;
+    // // std::cout << "enter de temperatura: ";
+    // // std::cin >> temp;
 
     // if (temp > 0 && temp < 30){
     //     std::cout << "the temperatura is good!";    
@@ -42,7 +43,19 @@ int main()
     // else{
     //     std::cout << "the temperatura is bad!";
     // }
-    return 0;
+    // return 0;
 
+/*
++
+-
+*
+/
+== igualdade 
+= atribuição
+%
+
+
+
+*/
 
 }

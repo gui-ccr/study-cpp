@@ -1,8 +1,9 @@
 #include <iostream>
+using namespace std;
 
 main(){
 
-    std::string nome;
+    string nome;
     int idade;
 
     // std::cout << "digite seu nome: ";
@@ -32,4 +33,7 @@ main(){
 
     return 0;
 
+    
+
 }
+

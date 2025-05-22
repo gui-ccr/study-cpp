@@ -5,10 +5,10 @@ main(){
     string name;
     int num;
 
-    do{
-        cout << "enter a positive number: ";
-        cin >> num;
-    }while(num < 0);
+    // do{
+    //     cout << "enter a positive number: ";
+    //     cin >> num;
+    // }while(num < 0);
 
     
     // while(1 == 1){
