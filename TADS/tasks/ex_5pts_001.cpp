@@ -17,7 +17,6 @@
 
 
 #include <iostream>
-#include <string>
 #include <iomanip> // Para std::fixed e std::setprecision
 
 int main()
