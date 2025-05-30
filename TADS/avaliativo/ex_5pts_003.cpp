@@ -50,15 +50,15 @@ int main() {
         std::cout << "Delta (Δ) = " << delta << std::endl;
 
         if (delta < 0) {
-            std::cout << "Não existem raízes reais (Δ < 0)." << std::endl; // [cite: 11]
+            std::cout << "Não existem raízes reais (Δ < 0)." << std::endl; // [cite: 07]
         } else if (delta == 0) {
             double x = -b / (2 * a);
-            std::cout << "Existe uma raiz real (raiz única, Δ = 0)." << std::endl; // [cite: 12]
+            std::cout << "Existe uma raiz real (raiz única, Δ = 0)." << std::endl; // [cite: 08]
             std::cout << "x = " << x << std::endl;
         } else { // delta > 0
             double x1 = (-b + std::sqrt(delta)) / (2 * a);
             double x2 = (-b - std::sqrt(delta)) / (2 * a);
-            std::cout << "Existem duas raízes reais (Δ > 0)." << std::endl; // [cite: 13]
+            std::cout << "Existem duas raízes reais (Δ > 0)." << std::endl; // [cite: 09]
             std::cout << "x1 = " << x1 << std::endl;
             std::cout << "x2 = " << x2 << std::endl;
         }
