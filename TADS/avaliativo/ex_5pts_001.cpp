@@ -28,7 +28,7 @@ int main()
     char nomeNegativadoChar;
     bool nomeNegativado;
 
-    std::cout << " " << std::endl; // Espaço em branco para melhorar a legibilidadeno terminal
+    std::cout << " " << std::endl; // Espaço em branco para melhorar a legibilidade no terminal
 
     // Variáveis para armazenar os dados do cliente
     std::cout << "----------------------------------------" << std::endl;
