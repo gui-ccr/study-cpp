@@ -1,3 +1,16 @@
+/*
+ * Desafio: Folha de Pagamento (Foco em Heranca e Polimorfismo)
+ * O que eu pratiquei aqui:
+ * - Criei uma hierarquia de classes com uma classe base 'Funcionario'.
+ * - Usei um metodo virtual 'calcularSalario()' na classe base para definir uma interface comum.
+ * - Criei classes derivadas 'FuncionarioAssalariado' e 'FuncionarioHorista' que
+ * herdam de 'Funcionario' e sobrescrevem (override) o metodo 'calcularSalario()' com
+ * sua propria logica de calculo.
+ * - No main, eu usei o poder do polimorfismo: criei um vetor de ponteiros da classe base (vector<Funcionario*>)
+ * para guardar objetos de diferentes classes filhas.
+ * - Iterei sobre o vetor com um unico loop e chamei o metodo 'calcularSalario()' de forma generica,
+ * e a versao correta para cada tipo de funcionario foi executada.
+ */
 #include <iostream>
 #include <string>
 #include <vector>
@@ -7,99 +20,69 @@ class Funcionario {
 protected:
     string nome;
     int id;
-
 public:
-    // Sugestao: Usar lista de inicializadores aqui tambem e' uma boa pratica.
     Funcionario(string nomeInicial, int idInicial) : nome(nomeInicial), id(idInicial) {
     }
-
-    string getNome() {
-        return nome;
-    }
-
-    int getId() {
-        return id;
-    }
-
-    // Renomeei para exibirInformacoes() para ficar mais claro
+    string getNome() { return nome; }
+    int getId() { return id; }
     void exibirInformacoes() {
-        // Corrigido: Adicionado um espaco antes de "Id"
         cout << "ID: " << id << ", Nome: " << nome;
     }
-
     virtual double calcularSalario() {
         return 0.0;
     }
 };
 
-// =======================================================
-
 class FuncionarioAssalariado : public Funcionario {
 private:
     double salarioMensal;
-
-public: // ---> CORRECAO 1: O construtor deve ser publico
-    // ---> CORRECAO 2: Chamando o construtor da classe mae (Funcionario)
+public:
     FuncionarioAssalariado(string nomeInicial, int idInicial, double salarioMensalInicial)
-        : Funcionario(nomeInicial, idInicial)
-    {
+        : Funcionario(nomeInicial, idInicial) {
         this->salarioMensal = salarioMensalInicial;
     }
 
-    // Override do metodo virtual
     double calcularSalario() override {
         return salarioMensal;
     }
 };
 
-// =======================================================
-
 class FuncionarioHorista : public Funcionario {
 private:
     double valorPorHora;
     int horasTrabalhadas;
-
-public: // ---> CORRECAO 1: O construtor deve ser publico
-    // ---> CORRECAO 2: Chamando o construtor da classe mae (Funcionario)
+public:
     FuncionarioHorista(string nomeInicial, int idInicial, double valorPorHoraInicial, int horasTrabalhadasInicial)
-        : Funcionario(nomeInicial, idInicial)
-    {
+        : Funcionario(nomeInicial, idInicial) {
         this->valorPorHora = valorPorHoraInicial;
         this->horasTrabalhadas = horasTrabalhadasInicial;
     }
 
-    // ---> CORRECAO 3: Metodo que estava faltando
     double calcularSalario() override {
         return valorPorHora * horasTrabalhadas;
     }
 };
 
 int main(){
+    // Crio objetos de classes filhas diferentes
+    FuncionarioAssalariado funcionario1("Guilherme", 123456, 2500.00);
+    FuncionarioHorista funcionario2("Matheus", 98464, 50.0, 60);
 
-    FuncionarioAssalariado funcionario1("guilherme", 123456, 2500.00);
-    FuncionarioHorista funcionario2("Matheus", 98464, 50, 60);
-
-
+    // Crio um vetor para ponteiros da classe base
     vector<Funcionario*> todosOsFuncionarios; 
+    // Adiciono o endereco dos objetos filhos no vetor
     todosOsFuncionarios.push_back(&funcionario1);
     todosOsFuncionarios.push_back(&funcionario2);
 
-
-    // ---> CORRECAO DO LOOP E PREENCHIMENTO DO CORPO <---
+    cout << "\n--- Processando Folha de Pagamento ---" << endl;
+    // Um unico loop para tratar todos os funcionarios, independente do tipo
     for (Funcionario* funcPtr : todosOsFuncionarios) {
-        // Para cada funcionario na lista, fazemos o seguinte:
-        
-        // a. Exibe as informacoes basicas (ID e Nome)
+        // Exibo os dados basicos
         funcPtr->exibirInformacoes();
-
-        // b. Calcula o salario usando o metodo polimorfico
+        // Chamo o metodo polimorfico. A versao correta (de Assalariado ou Horista) e chamada
         double salarioCalculado = funcPtr->calcularSalario();
-
-        // c. Imprime o salario calculado. A versao correta de calcularSalario()
-        //    sera chamada automaticamente para cada tipo de funcionario!
         cout << " | Salario a pagar: R$ " << salarioCalculado << endl;
     }
-
 
     return 0;
 }

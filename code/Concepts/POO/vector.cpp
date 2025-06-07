@@ -1,26 +1,37 @@
+/*
+ * Tópico: Vetor (std::vector)
+ * O que eu aprendi aqui:
+ * Eu aprendi a usar o 'std::vector', que e como uma lista ou array que cresce e diminui
+ * de tamanho automaticamente. E muito mais flexivel que um array normal de tamanho fixo.
+ * Para usa-lo, eu preciso incluir a biblioteca <vector>.
+ */
 #include <iostream>
-#include <vector>  // Precisa incluir para usar vetores
+#include <vector>  // Eu preciso incluir esta biblioteca para poder usar vetores.
 #include <string>
 using namespace std;
 
-// Vamos imaginar que temos uma classe Pizza bem simples por enquanto
+// Uma classe simples para o meu exemplo.
 class Pizza {
 public:
     string sabor;
-    Pizza(string s) : sabor(s) {} // Construtor
+    // Eu usei a lista de inicializadores aqui, que e' uma forma mais eficiente de escrever o construtor.
+    Pizza(string s) : sabor(s) {} 
 };
 
 int main() {
-    // 1. Criando a mesa de pizzas (um vetor vazio para guardar objetos Pizza)
+    // 1. Declaracao do Vetor: Eu crio um vetor vazio chamado 'mesaDePizzas' que vai guardar objetos 'Pizza'.
     vector<Pizza> mesaDePizzas;
+    
+    // O metodo .size() me diz quantos itens existem no vetor atualmente.
     cout << "A mesa comecou com " << mesaDePizzas.size() << " pizzas." << endl;
 
-    // 2. Criando algumas pizzas
+    // 2. Criando alguns objetos que vou colocar no vetor.
     Pizza pizza_calabresa("Calabresa");
     Pizza pizza_margherita("Margherita");
 
-    // 3. Adicionando as pizzas na mesa (no final da lista)
+    // 3. Adicionando itens ao Vetor
     cout << "\nChegou a pizza de Calabresa!" << endl;
+    // O metodo .push_back() adiciona um item ao FINAL do vetor. O vetor cresce automaticamente.
     mesaDePizzas.push_back(pizza_calabresa);
     cout << "Agora a mesa tem " << mesaDePizzas.size() << " pizza." << endl;
 
@@ -28,9 +39,10 @@ int main() {
     mesaDePizzas.push_back(pizza_margherita);
     cout << "Agora a mesa tem " << mesaDePizzas.size() << " pizzas." << endl;
 
-    // 4. Olhando as pizzas que estao na mesa
+    // 4. Acessando os itens do Vetor
     cout << "\nPizzas na mesa:" << endl;
-    // Um loop para passar por cada pizza na 'mesaDePizzas'
+    // Este e um "range-based for loop". E uma forma facil de passar por cada item da colecao.
+    // 'p' sera uma copia de cada Pizza dentro de 'mesaDePizzas', uma por vez.
     for (Pizza p : mesaDePizzas) {
         cout << "- Pizza de " << p.sabor << endl;
     }

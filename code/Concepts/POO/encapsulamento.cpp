@@ -1,76 +1,92 @@
+/*
+ * Tópico: Encapsulamento
+ * O que eu aprendi aqui:
+ * Eu aprendi a proteger os dados da minha classe usando o especificador 'private'.
+ * Os atributos privados so podem ser acessados pelos metodos da propria classe.
+ * Para permitir a interacao com o mundo exterior de forma segura, eu crio uma interface
+ * com metodos publicos (como o construtor, getters e setters). Isso e encapsulamento.
+ */
 #include <iostream>
 #include <string>
 
 class Pessoa {
-private: // Atributos agora sao privados
+private: // 'private' significa que estes atributos so podem ser acessados aqui de dentro da classe.
     std::string nome;
     int idade;
 
-public:
-    // Construtor: chamado quando um objeto Pessoa e criado
+public: // 'public' significa que esta e a interface da minha classe com o mundo exterior.
+    
+    // --- Construtor ---
+    // Este e um metodo especial que e chamado automaticamente quando eu crio um objeto.
+    // Eu o uso para inicializar os atributos do objeto de forma segura.
     Pessoa(std::string nomeInicial, int idadeInicial) {
-        nome = nomeInicial;
-        // Podemos adicionar validacao aqui
+        nome = nomeInicial; // O nome eu aceito qualquer um.
+        
+        // Eu adiciono uma regra de validacao para a idade.
         if (idadeInicial > 0) {
             idade = idadeInicial;
         } else {
-            idade = 0; // Valor padrao ou tratamento de erro
+            // Se a idade for invalida, eu defino um valor padrao e aviso o usuario.
+            idade = 0; 
             std::cout << "Idade invalida fornecida. Definindo idade como 0." << std::endl;
         }
         std::cout << "Objeto Pessoa criado para " << nome << std::endl;
     }
 
-    // Metodo publico para apresentar (acessa atributos privados)
+    // Metodo publico que pode acessar os atributos privados 'nome' e 'idade'.
     void apresentar() {
         std::cout << "Ola! Meu nome e " << nome << " e eu tenho " << idade << " anos." << std::endl;
     }
 
-    // Metodo publico (setter) para modificar a idade com validacao
+    // --- Setter ---
+    // Um metodo 'setter' e usado para modificar um atributo privado, mas com regras.
     void setIdade(int novaIdade) {
-        if (novaIdade > 0 && novaIdade > idade) { // Exemplo de regra: so pode aumentar e ser positiva
+        // So permito que a nova idade seja maior que a atual e positiva.
+        if (novaIdade > 0 && novaIdade > idade) {
             idade = novaIdade;
         } else {
             std::cout << "Tentativa de definir idade invalida." << std::endl;
         }
     }
 
-    // Metodo publico (getter) para obter a idade
+    // --- Getter ---
+    // Um metodo 'getter' e usado para permitir a leitura de um atributo privado.
     int getIdade() {
         return idade;
     }
 
-    // Metodo publico (getter) para obter o nome
     std::string getNome() {
         return nome;
     }
 
-    // Poderiamos ter um setter para o nome tambem, se desejado
+    // Um setter para o nome, se eu quisesse permitir a mudanca de nome.
     void setNome(std::string novoNome) {
         nome = novoNome;
     }
 };
 
 int main() {
-    // Criando objetos usando o construtor
+    // Agora, para criar um objeto, eu sou obrigado a passar os dados para o construtor.
     Pessoa pessoa1("Ana", 30);
-    Pessoa pessoa2("Carlos", -5); // Testando a validacao da idade no construtor
+    Pessoa pessoa2("Carlos", -5); // Testando a validacao de idade do construtor.
 
     std::cout << "\nDados da Pessoa 1:" << std::endl;
     pessoa1.apresentar();
 
     std::cout << "\nDados da Pessoa 2:" << std::endl;
     pessoa2.apresentar();
-    // pessoa2.idade = 25; // ERRO DE COMPILACAO! 'idade' e privado e nao pode ser acessado diretamente.
-    // std::cout << pessoa2.nome; // ERRO DE COMPILACAO! 'nome' e privado.
+    
+    // Estas linhas dariam ERRO DE COMPILACAO porque 'idade' e 'nome' sao 'private'.
+    // pessoa2.idade = 25; 
+    // std::cout << pessoa2.nome;
 
-    // Usando metodos publicos para interagir com os dados privados
+    // Eu devo usar os metodos publicos para interagir com o objeto.
     std::cout << "\nIdade da Ana (usando getter): " << pessoa1.getIdade() << std::endl;
-    pessoa1.setIdade(31);
-    pessoa1.setIdade(20); // Nao vai alterar pela nossa regra no setIdade
+    pessoa1.setIdade(31);  // Isso vai funcionar.
+    pessoa1.setIdade(20);  // Isso vai ser bloqueado pela minha regra no setter.
     std::cout << "Nome da Ana (usando getter): " << pessoa1.getNome() << std::endl;
     std::cout << "Nova apresentacao da Ana:" << std::endl;
     pessoa1.apresentar();
-
 
     return 0;
 }
