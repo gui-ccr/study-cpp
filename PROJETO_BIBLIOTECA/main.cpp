@@ -48,10 +48,11 @@ protected:
     // 'protected' permite que as classes filhas (Livro, Filme) acessem estes atributos diretamente.
     string titulo;
     int anoPublicacao;
+    bool estaEmprestado;
 
 public:
     // Construtor da classe base, usando a lista de inicializadores.
-    ItemDeMidia(string titulo, int anoPublicacao) : titulo(titulo), anoPublicacao(anoPublicacao)
+    ItemDeMidia(string titulo, int anoPublicacao) : titulo(titulo), anoPublicacao(anoPublicacao), estaEmprestado(false)
     {
         // O corpo fica vazio pois a inicializacao ja foi feita.
     }
@@ -71,6 +72,14 @@ public:
     string getTitulo()
     {
         return titulo;
+    }
+    bool isEmprestado()
+    {
+        return estaEmprestado;
+    }
+    void setEmprestado(bool status)
+    {
+        this->estaEmprestado = status;
     }
 };
 
@@ -105,7 +114,18 @@ public:
         std::cout << "Edicao: (" << edicao << ")" << std::endl;
         std::cout << "Ano Publicado: " << anoPublicacao << std::endl;
         std::cout << "Paginas: " << quantidadePaginas << std::endl;
-        std::cout << "-------------------------" << std::endl;
+        std::cout << "-------------------------" << std::endl
+                  << std::endl;
+
+        std::cout << "---- Status ----";
+        if (estaEmprestado)
+        {
+            std::cout << std::endl << "Emprestado" << std::endl;
+        }
+        else
+        {
+            std::cout << std::endl << "Disponivel" << std::endl;
+        }
     }
 };
 
@@ -134,7 +154,18 @@ public:
         std::cout << "Diretor: \"" << diretor << "\"" << std::endl;
         std::cout << "Ano Publicado: " << anoPublicacao << std::endl;
         std::cout << "Duracao: " << duracao << " minutos" << std::endl;
-        std::cout << "-------------------------" << std::endl;
+        std::cout << "-------------------------" << std::endl
+                  << std::endl;
+
+        std::cout << "---- Status ----";
+        if (estaEmprestado)
+        {
+            std::cout << "Emprestado" << std::endl;
+        }
+        else
+        {
+            std::cout << "Disponivel" << std::endl;
+        }
     }
 };
 
@@ -161,7 +192,18 @@ public:
         std::cout << "Ano Publicado: " << anoPublicacao << std::endl;
         std::cout << "Numero da Edição: (" << numeroEdicao << ")" << std::endl;
         std::cout << "Editora: \"" << editora << "\"" << std::endl;
-        std::cout << "-------------------------" << std::endl;
+        std::cout << "-------------------------" << std::endl
+                  << std::endl;
+
+        std::cout << "---- Status ----";
+        if (estaEmprestado)
+        {
+            std::cout << "Emprestado" << std::endl;
+        }
+        else
+        {
+            std::cout << "Disponivel" << std::endl;
+        }
     }
 };
 
@@ -265,6 +307,64 @@ public:
                       << "Nenhum item com o titulo \"" << tituloParaBuscar << "\" foi encontrado na biblioteca." << std::endl;
         }
     }
+
+    // empresta 1 item
+    void emprestarItem(int indice)
+    {
+        if (indice < 0 || indice >= colecao.size())
+        {
+            std::cout << "Erro: Indice invalido." << std::endl;
+            return; // Saio do metodo.
+        }
+        ItemDeMidia *itemParaEmprestar = colecao[indice];
+
+        if (itemParaEmprestar->isEmprestado())
+        {
+            std::cout << "O item \"" << itemParaEmprestar->getTitulo() << "\" ja esta emprestado." << std::endl;
+        }
+        else
+        {
+            itemParaEmprestar->setEmprestado(true);
+
+            // Depois, avise o usuario.
+            std::cout << "Voce emprestou o item \"" << itemParaEmprestar->getTitulo() << "\" com sucesso." << std::endl;
+        }
+    }
+
+    // devolve o item
+    // dentro da classe Biblioteca
+
+    void devolverItem(int indice)
+    {
+        // Sua validacao de indice (continua perfeita)
+        if (indice < 0 || indice >= colecao.size())
+        {
+            std::cout << "Erro: Indice invalido." << std::endl;
+            return;
+        }
+
+        ItemDeMidia *itemParaDevolver = colecao[indice];
+
+        // --- LOGICA CORRIGIDA ---
+
+        // Checamos se o item ESTA realmente emprestado para poder devolve-lo.
+        if (itemParaDevolver->isEmprestado())
+        { // Se for 'true'...
+
+            // ...entao fazemos a devolucao!
+            // 1. Mudamos o status para 'false' (disponivel)
+            itemParaDevolver->setEmprestado(false);
+
+            // 2. Avisamos o usuario do sucesso.
+            std::cout << "Voce devolveu o item \"" << itemParaDevolver->getTitulo() << "\" com sucesso." << std::endl;
+        }
+        else
+        { // Se 'isEmprestado()' for 'false'...
+
+            // ...o item ja estava na biblioteca. Apenas informamos o usuario.
+            std::cout << "O item \"" << itemParaDevolver->getTitulo() << "\" ja estava disponivel." << std::endl;
+        }
+    }
     // Deleta um item da colecao e da memoria.
     void deletarItem(int indice)
     {
@@ -307,6 +407,8 @@ int main()
         std::cout << "4. Listar Todos os Itens" << std::endl;
         std::cout << "5. Deletar Item" << std::endl;
         std::cout << "6. Buscar por Titulo" << std::endl;
+        std::cout << "7. Emprestar Item" << std::endl;
+        std::cout << "8. Devolver Item" << std::endl;
         std::cout << "0. Sair do Programa" << std::endl;
         std::cout << "Escolha uma opcao: ";
 
@@ -440,6 +542,63 @@ int main()
             std::getline(std::cin, tituloBuscado);
             minhaBiblioteca.buscarPorTitulo(tituloBuscado);
 
+            break;
+        }
+            // ... dentro do seu switch ...
+
+        case 7:
+        { // Supondo que 7 seja "Emprestar Item"
+            // E uma boa pratica checar se a biblioteca esta vazia primeiro.
+            if (minhaBiblioteca.estaVazia())
+            {
+                cout << "\nA biblioteca esta vazia. Nao ha itens para emprestar." << endl;
+            }
+            else
+            {
+                // 1. Mostra a lista para o usuario escolher
+                minhaBiblioteca.listarItens();
+
+                // 2. Pede para o usuario digitar o numero
+                cout << "Digite o numero do item que deseja emprestar (ou 0 para cancelar): ";
+                int indiceParaEmprestar;
+                cin >> indiceParaEmprestar; // 3. Le a escolha do usuario
+
+                // 4. Se o usuario nao cancelou, chama o metodo com o indice ajustado
+                if (indiceParaEmprestar > 0)
+                {
+                    // Lembre-se de subtrair 1, pois a lista para o usuario comeca em 1, mas o vetor em 0.
+                    minhaBiblioteca.emprestarItem(indiceParaEmprestar - 1);
+                }
+                else
+                {
+                    cout << "Operacao cancelada." << endl;
+                }
+            }
+            break;
+        }
+
+        case 8:
+        { // Supondo que 8 seja "Devolver Item"
+            if (minhaBiblioteca.estaVazia())
+            {
+                cout << "\nA biblioteca esta vazia. Nao ha itens para devolver." << endl;
+            }
+            else
+            {
+                minhaBiblioteca.listarItens();
+                cout << "Digite o numero do item que deseja devolver (ou 0 para cancelar): ";
+                int indiceParaDevolver;
+                cin >> indiceParaDevolver;
+
+                if (indiceParaDevolver > 0)
+                {
+                    minhaBiblioteca.devolverItem(indiceParaDevolver - 1);
+                }
+                else
+                {
+                    cout << "Operacao cancelada." << endl;
+                }
+            }
             break;
         }
         case 0:
