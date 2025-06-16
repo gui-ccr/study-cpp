@@ -1,0 +1,15 @@
+#include <iostream>
+
+// A função 'modificar' recebe 'x' por valor (uma cópia)
+void modificar(int x) {
+    x = 20; // Modifica a cópia local
+    std::cout << "Valor de x dentro da função: " << x << std::endl;
+}
+
+int main() {
+    int numero = 10;
+    std::cout << "Valor de 'numero' antes da função: " << numero << std::endl;
+    modificar(numero);
+    std::cout << "Valor de 'numero' depois da função: " << numero << std::endl; // O valor original não muda
+    return 0;
+}
