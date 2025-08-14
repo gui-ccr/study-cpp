@@ -1,18 +1,24 @@
-// ? Uma clínica médica precisa de um programa de computador que calcule o Índice de
-// ? Massa Corporal de um grupo de pessoas (indeterminado). Para cada pessoa é necessário
-// ? conhecer seu nome completo, seu peso e sua altura. Este programa deverá conter dois módulos,
-// ? sendo:
-// // Um primeiro módulo chamado ObterIMC(<parâmetros>) que deverá exclusivamente
-// // calcular o IMC da pessoa, através da fórmula IMC = Peso/Altura2
-// // • Um segundo módulo chamado SituacaoIMC(<parâmetros>) que deverá exclusivamente
-// // exibir a situação em que a pessoa se enquadra
-
-// ! Observação: (a) não utilizar variáveis globais; (b) utilizar o laço FOR na parte determinada.
 #include <iostream>
 #include <string>
 using namespace std;
 
-// Função para calcular o IMC
+/*
+    ? Uma clinica medica precisa de um programa de computador que calcule o Indice de Massa Corporal de um grupo de pessoas (indeterminado).
+    ? Para cada pessoa e necessario conhecer seu nome completo, seu peso e sua altura. Este programa devera conter dois modulos, sendo:
+    todo • Um primeiro modulo chamado ObterIMC(<parametros>) que devera exclusivamente calcular o IMC da pessoa, atraves da formula IMC = Peso/Altura^2;
+    todo • Um segundo modulo chamado SituacaoIMC(<parametros>) que devera exclusivamente exibir a situacao em que a pessoa se enquadra, conforme tabela abaixo:
+    * IMC         Situacao
+    * ate 20      Magro
+    * 20 ate 25   Normal
+    * 25 ate 30   Sobrepeso
+    * acima de 30 Obesidade
+    ! Observacao: (a) nao utilizar variaveis globais; (b) utilizar o laco FOR na parte determinada.
+*/
+#include <iostream>
+#include <string>
+using namespace std;
+
+//? Função para calcular o IMC
 int ObterIMC(double peso, double altura)
 {
     return peso / (altura * altura);
@@ -40,7 +46,7 @@ int main()
     //* variavel de controle para meu for
     int n;
 
-    //? codigo principal para fazer a pergunta ao usuario
+    //? Codigo principal para fazer a pergunta ao usuario
 
     //* aqui o usuario informa quantas pessoas ele vai querer calcular o IMC
     cout << "---- CALCULADORA DE IMC ----" << endl;
@@ -48,7 +54,7 @@ int main()
     cin >> n;
     cin.ignore();
 
-    //* uso do for para uma situação determinada, agora que sabemos a quantidade de pessoas a serem cadastradas
+    //? uso do for para uma situação determinada, agora que sabemos a quantidade de pessoas a serem cadastradas
     for (int i = 0; i < n; i++)
     {
         string nome;
